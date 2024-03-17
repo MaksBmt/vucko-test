@@ -1,0 +1,9 @@
+.wrap {
+  @include min-max(320px, 1920px);
+
+  padding: 0 20px;
+
+  @media(min-width: $sx) {
+    padding: 0 30px;
+  }
+}

@@ -1,0 +1,406 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "SuisseIntl";
+  font-display: swap;
+  src: url("../fonts/SuisseIntl-Medium.woff2") format("woff2"), url("../fonts/SuisseIntl-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+/**
+ * Основные стили
+ **/
+html {
+  color: #CBCECF;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Open Sans", "Arial", sans-serif;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-decoration-skip: objects;
+  box-sizing: border-box;
+  margin: 0;
+  background: #000000;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+img[alt] {
+  font-size: 10px;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+button {
+  text-align: center;
+  display: block;
+  cursor: pointer;
+  box-shadow: none;
+  appearance: none;
+  border: none;
+}
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}
+
+*:hover {
+  transition: all 0.2s ease 0s;
+}
+
+.wrap {
+  min-width: 320px;
+  max-width: 1920px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+@media (min-width: 480px) {
+  .wrap {
+    padding: 0 30px;
+  }
+}
+
+.header {
+  font-family: "SuisseIntl";
+  opacity: 0;
+}
+.header__wrap {
+  padding-top: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 767px) {
+  .header__wrap--closed .header__box {
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+  }
+  .header__wrap--closed .header__button .header__button-text {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -3%;
+    color: #ffffff;
+  }
+  .header__wrap--opened .header__box {
+    transform: translateX(0%);
+    transition: transform 0.5s ease;
+  }
+  .header__wrap--opened .header__button {
+    position: relative;
+    z-index: 500;
+    width: 34px;
+    height: 34px;
+    background-color: inherit;
+  }
+  .header__wrap--opened .header__button::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 34px;
+    background-image: url(../img/cross.svg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .header__wrap--opened .header__button .header__button-text {
+    display: none;
+  }
+}
+@media (min-width: 480px) {
+  .header__wrap {
+    padding-top: 24px;
+  }
+}
+.header__link {
+  display: block;
+  font-size: 16px;
+  line-height: 18px;
+  color: #ffffff;
+}
+@media (min-width: 480px) {
+  .header__link {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}
+.header__link--green {
+  color: #BFE72C;
+}
+@media (min-width: 768px) {
+  .header__link--green {
+    position: relative;
+    order: 1;
+    padding-left: 30px;
+  }
+  .header__link--green::before {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 20px;
+    height: 15px;
+    transform: translateY(-50%);
+    background-image: url(../img/telegram.svg);
+    background-repeat: no-repeat;
+  }
+}
+.header__img {
+  width: 35px;
+  height: 35px;
+}
+@media (min-width: 768px) {
+  .header__img {
+    width: 130px;
+  }
+}
+@media (min-width: 768px) {
+  .header__button {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .header__box {
+    position: fixed;
+    inset: 0;
+    top: 61px;
+    z-index: 110;
+  }
+}
+
+.nav__list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  background-color: #000000;
+}
+
+.nav__list {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+.nav__item {
+  padding: 5px 0;
+  padding-left: 20px;
+}
+@media (min-width: 768px) {
+  .nav__item {
+    padding: 0;
+  }
+}
+
+.nav__link {
+  text-decoration: none;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.main {
+  font-family: "SuisseIntl";
+  min-height: 1824px;
+  position: relative;
+}
+.main__title {
+  margin: 0;
+  padding: 60px 0;
+  position: relative;
+}
+@media (min-width: 480px) {
+  .main__title {
+    padding-top: 50px;
+    padding-bottom: 180px;
+  }
+}
+.main__svg--title {
+  width: 100%;
+  aspect-ratio: 7/1;
+  opacity: 0.3;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.main__promo {
+  font-size: 24px;
+  line-height: 30px;
+  color: #ffffff;
+  margin-bottom: 38px;
+}
+@media (min-width: 480px) {
+  .main__promo {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+@media (min-width: 768px) {
+  .main__promo {
+    font-size: 30px;
+    line-height: 36px;
+    margin-bottom: 24px;
+  }
+}
+.main__string {
+  display: block;
+  transform: scaleY(0);
+  transform-origin: center bottom;
+}
+.main__wrapper {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.main__link {
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+.main__text {
+  margin-right: 12px;
+  font-size: 18px;
+  line-height: 20px;
+}
+@media (min-width: 480px) {
+  .main__text {
+    font-size: 22px;
+    line-height: 26px;
+  }
+}
+@media (min-width: 768px) {
+  .main__text {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+.main__line {
+  display: block;
+  margin-top: 8px;
+  height: 2px;
+  background-color: #fff;
+  width: 200px;
+}
+@media (min-width: 480px) {
+  .main__line {
+    width: 223px;
+  }
+}
+
+.showreel {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 1440px) {
+  .showreel {
+    padding-top: 115px;
+  }
+}
+.showreel--static {
+  transform: scale(0);
+}
+.showreel--scroll {
+  position: absolute;
+  top: 125px;
+  right: 70px;
+  padding: 0;
+  margin: 0;
+  display: none;
+  transform: scale(0);
+}
+@media (min-width: 768px) {
+  .showreel--scroll {
+    display: flex;
+  }
+  .showreel--scroll .showreel__title {
+    margin: 0;
+  }
+  .showreel--scroll .showreel__video {
+    width: 245px;
+  }
+}
+.showreel__title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  font-family: "SuisseIntl";
+  margin-bottom: 14px;
+  font-weight: 500;
+  translate: none;
+  rotate: none;
+  scale: none;
+  opacity: 1;
+  transform: translate(0px, 0px);
+}
+@media (min-width: 480px) {
+  .showreel__title {
+    font-size: 22px;
+    line-height: 26px;
+  }
+}
+@media (min-width: 768px) {
+  .showreel__title {
+    font-size: 18px;
+    line-height: 22px;
+    order: 1;
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 768px) {
+  .showreel__wrapper {
+    margin-bottom: 16px;
+  }
+}
+.showreel__video {
+  aspect-ratio: 16/9;
+  width: 100%;
+  object-fit: fill;
+  border-radius: 6px;
+}
+
+.icon__wrap {
+  transform: scaleY(0);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+.icon__item {
+  transform-box: fill-box;
+  transform-origin: center;
+}

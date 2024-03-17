@@ -1,0 +1,79 @@
+.showreel {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+
+    @media(min-width: $lg) {
+        padding-top: 115px;
+    }
+
+    &--static {
+        transform: scale(0);
+    }
+
+    &--scroll {
+        position: absolute;
+        top: 125px;
+        right: 70px;
+        padding: 0;
+        margin: 0;
+        display: none;
+        transform: scale(0);
+
+        @media(min-width: $md) {
+            display: flex;
+
+            .showreel__title {
+                margin: 0;
+                // font-size: 18px;
+                // line-height: 22px;
+            }
+
+            .showreel__video {
+                width: 245px;
+            }
+        }
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 18px;
+        line-height: 22px;
+        color: $white;
+        font-family: "SuisseIntl";
+        margin-bottom: 14px;
+        font-weight: 500;
+
+        translate: none;
+        rotate: none;
+        scale: none;
+        opacity: 1;
+        transform: translate(0px, 0px);
+
+        @media(min-width: $sx) {
+            font-size: 22px;
+            line-height: 26px;
+        }
+
+        @media(min-width: $md) {
+            font-size: 18px;
+            line-height: 22px;
+            order: 1;
+            margin-bottom: 0;
+        }
+    }
+
+    &__wrapper {
+        @media(min-width: $md) {
+            margin-bottom: 16px;
+        }
+    }
+
+    &__video {
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        object-fit: fill;
+        border-radius: 6px
+    }
+}

@@ -1,0 +1,28 @@
+.nav__list {
+  @include list-reset();
+  background-color: #000000;
+
+}
+
+.nav__list {
+  padding: 20px;
+  @media(min-width: $md) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+.nav__item {
+  padding: 5px 0;
+  padding-left: 20px;
+
+  @media(min-width: $md) {
+    padding: 0;
+  }
+}
+
+.nav__link {
+  @include link-reset();
+  color: $white;
+}
