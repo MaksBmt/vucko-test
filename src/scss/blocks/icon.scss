@@ -2,32 +2,13 @@
 
     &__wrap {
         transform: scaleY(0);
-        // transform-box: fill-box;
-        // transform-origin: center;
-        // display: flex;
 
         transform-style: preserve-3d;
         perspective: 1000px;
-
-        &:hover{
-            .icon__item {
-                // transform: rotateX(-90deg);
-                // transform: scaleY(0) skew(10deg);
-                
-            }
-        }
     }
 
     &__item {
         transform-box: fill-box;
         transform-origin: center;
-        // transform: scaleY(0);
-        // backface-visibility: hidden;
-        // transition: transform 0.75s ease;
-        // transform: rotateX(0deg);
-        // transform-origin: center;
-        // transform-box: fill-box;
-       
     }
-
 }

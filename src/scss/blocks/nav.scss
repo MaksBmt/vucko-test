@@ -1,11 +1,12 @@
 .nav__list {
   @include list-reset();
   background-color: #000000;
-
+  font-family: "SuisseIntl";
 }
 
 .nav__list {
   padding: 20px;
+
   @media(min-width: $md) {
     display: flex;
     flex-wrap: wrap;
@@ -25,4 +26,16 @@
 .nav__link {
   @include link-reset();
   color: $white;
+  font-size: 14px;
+  line-height: 16px;
+
+  @media(min-width: 960px) {
+    font-size: 16px;
+    line-height: 18px;
+  }
+
+  @media(min-width: 1200px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
 }

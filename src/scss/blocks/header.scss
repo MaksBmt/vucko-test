@@ -1,7 +1,6 @@
 .header {
   font-family: "SuisseIntl";
   opacity: 0;
-  
 
   &__wrap {
     padding-top: 17px;
@@ -9,15 +8,15 @@
     align-items: center;
     justify-content: space-between;
 
-    @media(max-width: $md-1){
+    @media(max-width: $md-1) {
       &--closed {
         .header__box {
           transform: translateX(100%);
           transition: transform 0.4s ease;
         }
-  
+
         .header__button {
-  
+
           .header__button-text {
             font-size: 16px;
             line-height: 20px;
@@ -26,21 +25,21 @@
           }
         }
       }
-  
+
       &--opened {
         .header__box {
           transform: translateX(0%);
           transition: transform 0.5s ease;
         }
-  
+
         .header__button {
           position: relative;
           z-index: 500;
-          // margin-bottom: 5px;
+
           width: 34px;
           height: 34px;
           background-color: inherit;
-  
+
           &::before {
             position: absolute;
             content: "";
@@ -53,7 +52,7 @@
             background-size: cover;
             background-repeat: no-repeat;
           }
-  
+
           .header__button-text {
             display: none;
           }
@@ -63,7 +62,6 @@
 
     @media(min-width: $sx) {
       padding-top: 24px;
-      // padding-bottom: 80px;
     }
   }
 
@@ -81,10 +79,22 @@
     &--green {
       color: $green-common;
 
-      @media(min-width: $md){
+      @media(min-width: $md) {
         position: relative;
         order: 1;
         padding-left: 30px;
+        font-size: 14px;
+        line-height: 16px;
+
+        @media(min-width: 960px) {
+          font-size: 16px;
+          line-height: 18px;
+        }
+
+        @media(min-width: 1200px) {
+          font-size: 18px;
+          line-height: 20px;
+        }
 
         &::before {
           position: absolute;
@@ -99,23 +109,27 @@
         }
       }
     }
-
-    // &--logo {
-     
-    // }
   }
 
   &__img {
     width: 35px;
     height: 35px;
 
-    @media(min-width: $md){
+    @media(min-width: $md) {
       width: 130px;
+    }
+
+    @media(min-width: 960px) {
+      width: 156px;
+    }
+
+    @media(min-width: 1200px) {
+      width: 180px;
     }
   }
 
   &__button {
-    @media(min-width: $md){
+    @media(min-width: $md) {
       display: none;
     }
   }

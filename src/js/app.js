@@ -1,92 +1,31 @@
-
-//============================================================================================================================================================================================================================================
-// import Popup from "./files/popup.js";
-// import OpenMenu from "./files/openMenu.js";
-// import Swiper from 'swiper/bundle';  //! - после установки через npm
-
-// if (document.querySelector('.header') !== null) {
-//     const nav = document.querySelector('.header__wrap');
-
-//     const toggleNav = new OpenMenu(nav, 'header__button', 'header__wrap--closed', 'header__wrap--opened');
-//     toggleNav.toggle();
-//   }
-
-// import { correctMarginMain } from "./files/functions.js"
-
-// const TOP = 160;
-// if (document.querySelector('.popup') !== null) {
-//     // const popup = document.querySelector('.popup');
-
-//     document.querySelector('.link__popup').addEventListener('click', (evt) => {
-//         const popupTop = window.scrollY + TOP;
-//         const popup = new Popup(document.querySelector('.popup'), 'popup__close', 'popup__show', popupTop);
-//         evt.preventDefault();
-//         popup.setPopup();
-//         popup.setOverlay();
-//         //   popup.setClosePopupTimeOut(3000)
-//     });
-// }
-
-// correctMarginMain();
-
-//?==== пример подключения ==========
-// if (document.documentElement.clientWidth < 1365) {
-//     new Swiper('.presentation__swiper', {
-
-//       pagination: {
-//         el: '.swiper-pagination',
-//         clickable: true,
-//         type: 'fraction'  //? если нужны цифры
-//       },
-
-//       navigation: {
-//         nextEl: '.navigation__btn--next',
-//         prevEl: '.navigation__btn--prev',
-//       },
-//     });
-// }
-//? ===========================================
-
-//? ====== скролл при клике до нужного блока ========
-
-// const promo = document.querySelector('.promo')
-// const btnPromo = document.querySelector('.header__btn--promo');
-// btnPromo.addEventListener('click', (evt) => {
-
-//   evt.preventDefault();
-//   promo.scrollIntoView({
-//     behavior: "smooth",
-//     block: "start"
-//   });
-// });
-
-//?===================================================
-
 import { gsap } from "gsap";
-// import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import OpenMenu from "./files/openMenu.js";
 
+if (document.querySelector('.header') !== null) {
+  const nav = document.querySelector('.header__wrap');
+
+  const toggleNav = new OpenMenu(nav, 'header__button', 'header__wrap--closed', 'header__wrap--opened');
+  toggleNav.toggle();
+}
 
 const heightWindow = document.documentElement.clientHeight;
 const widthWindow = document.documentElement.clientWidth;
-const widthMain = document.querySelector('.main').clientWidth
+const widthMain = document.querySelector('.main').clientWidth;
 const titleH1 = document.querySelector('h1');
-// const icons
+
 const rectH1 = titleH1.getBoundingClientRect();
 const header = document.querySelector('header');
-const animeShowreel = document.querySelector('.showreel--scroll')
-// console.log(animeShowreel);
-
+const animeShowreel = document.querySelector('.showreel--scroll');
+let animeShowreelWidth = 0;
 const transformStartH1 = (heightWindow / 2) - (rectH1.height / 2);
 
 titleH1.style.transform = `translateY(${transformStartH1 + 'px'})`;
 
-
 gsap.set('.icon__wrap', {
   skewX: function (i, el) {
-    return -14 + i * 4
+    return -14 + i * 4;
   }
 });
-
 
 const tl = gsap.timeline();
 tl.to('.icon__wrap', {
@@ -101,7 +40,6 @@ tl.to('.icon__wrap', {
   }, "-=1")
   .to(titleH1, {
     y: 0,
-    // delay: 1.6,  //задержка
     duration: 1,
   })
   .to(header, {
@@ -128,85 +66,89 @@ gsap.to('.showreel--scroll', {
   delay: 2
 })
 
-// document.addEventListener("DOMContentLoaded", (event) => {
-//   gsap.registerPlugin(ScrollTrigger);
-//   if (widthWindow > 768) {
-//     gsap.to('.showreel--scroll',{
-//       // scrollTrigger: ".body",
+setTimeout(() => {
+  animeShowreelWidth = animeShowreel.getBoundingClientRect().width;
+}, 3000)
 
-//       scrollTrigger: {
-//         trigger: '.showreel--scroll',
-//         toggleActions: "restart pause reverse pause",
-//         start: "1px bottom",
-//       },
-//       scrab: true,
-//       x:-50,
-
-//     })
-
-//   }
-
-//   // gsap code here!
-// });
-// const scaleMax = (widthMain - 140) / animeShowreel.clientWidth;//!
-const scaleMax = (widthMain - 140) - animeShowreel.clientWidth;
 const MAX_SCROLL = 700;
 const TOP_VIDEO = 125;
-// console.log(widthMain,scaleMax);
+const EDGE_PADDING = 140;
+const WRAP_PADDING = 30;
 
-// const deltaScale = scaleMax / MAX_SCROLL; //!
-const deltaScale = MAX_SCROLL / scaleMax;
 const videoScrollBox = animeShowreel.querySelector('video');
 const widthVideoScrollBox = videoScrollBox.clientWidth;
-// console.log(deltaScale);
+const widthFillArea = widthMain - EDGE_PADDING;
+const widthEnlargement = widthFillArea - widthVideoScrollBox;
 
-const scroll = { offset: 0, widthVideoScrollBox: videoScrollBox.clientWidth, deltaWidth: 0 }
+const leftMinCursor = EDGE_PADDING / 2;
+const leftShowreel = animeShowreel.getBoundingClientRect().x - EDGE_PADDING / 2 - WRAP_PADDING;
 
+const scroll = {
+  offset: 0,
+  deltaWidth: 0,
+  leftShowreel: leftShowreel,
+  deltaWidthVideo: 0,
+}
+
+const mouse = {
+  x: null
+}
+
+const updateCoordinates = (evt) => {
+  mouse.x = evt.clientX;
+};
+
+document.querySelector('.main').addEventListener('mousemove', (evt) => {
+  updateCoordinates(evt);
+  const delta = mouse.x - leftShowreel + scroll.deltaWidthVideo;
+
+  if (mouse.x < leftShowreel - scroll.deltaWidthVideo && mouse.x > leftMinCursor) {
+
+    gsap.to(animeShowreel, {
+      x: delta,
+      duration: 0.2,
+      delay: 0.05
+    });
+  }
+  setTimeout(() => {
+    scroll.deltaWidthVideo = animeShowreel.getBoundingClientRect().width - animeShowreelWidth;
+  }, 250);
+
+});
 
 if (widthWindow > 768) {
   window.addEventListener('scroll', () => {
-    // const offsetNew = Math.floor(window.scrollY);
+    header.style.transform = `translateY(${window.scrollY}px)`;
+
     const offsetNew = window.scrollY;
-    // const offsetScale = deltaScale * offsetNew;//!
-    // const offsetScale = 0;
 
-    if (((offsetNew * widthMain - 140) / MAX_SCROLL) < (widthMain - 140 - widthVideoScrollBox)) {
-      // offsetScale = (offsetNew * widthMain - 140) / MAX_SCROLL;
-      scroll.deltaWidth = (offsetNew * widthMain - 140) / MAX_SCROLL;
-
+    if (((offsetNew * widthFillArea) / MAX_SCROLL) < widthEnlargement) {
+      scroll.deltaWidth = (offsetNew * widthFillArea) / MAX_SCROLL;
     } else {
-      scroll.deltaWidth = widthMain - 140 - widthVideoScrollBox;
+      scroll.deltaWidth = widthEnlargement;
     }
 
-    if (scroll.deltaWidth < widthMain - 140 - widthVideoScrollBox) {
-      console.log('w',scroll.widthVideoScrollBox <= widthMain - 140);
-      
+    if (scroll.deltaWidth < widthEnlargement) {
       animeShowreel.style.top = offsetNew + TOP_VIDEO + 'px';
-    } else {
-      // animeShowreel.style.top = window.scrollY + 'px';
     }
 
-    // const deltaWidthVideo = (scroll.widthVideoScrollBox - widthVideoScrollBox * offsetScale) / 2//!
-
-    // console.log('новая ширина -', scroll.widthVideoScrollBox, 'ширина поля - ', widthMain - 140);
-
-    // if (scroll.offset < MAX_SCROLL) {
-    // if (scroll.widthVideoScrollBox < widthMain - 140) {
     gsap.to(videoScrollBox, {
-      // width: widthVideoScrollBox * offsetScale, //!
       width: scroll.deltaWidth + widthVideoScrollBox,
       duration: 0.1
     });
 
-    // gsap.to(animeShowreel, {
-    //   x: deltaWidthVideo,
-    //   duration: 0.1
-    // })
-    // }
 
-    // animeShowreel.querySelector('.showreel__title').style.cssText = 'translate: none;rotate: none;scale: none; opacity: 1;transform: translate(0px, 0px);'
-    // }
+    setTimeout(() => {
+      const pointX = animeShowreel.getBoundingClientRect().x;
+
+      if (pointX < EDGE_PADDING / 2) {
+        gsap.to(animeShowreel, {
+          x: scroll.deltaWidth - widthEnlargement - WRAP_PADDING,
+          duration: 1
+        })
+      }
+    }, 120);
+
     scroll.offset = offsetNew;
-    scroll.widthVideoScrollBox = videoScrollBox.clientWidth;
-  })
+  });
 }
